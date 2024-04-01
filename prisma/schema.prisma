@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model tasks {
+  id                             Int         @id(map: "tasks_pk") @default(autoincrement())
+  title                          String      @db.VarChar
+  description                    String?
+  start_date                     DateTime?   @db.Timestamptz(6)
+  end_date                       DateTime?   @db.Timestamptz(6)
+  user_id                        Int?
+  parent_id                      Int?
+  assignee_id                    Int?
+  status                         task_status @default(todo)
+  tasks                          tasks?      @relation("tasksTotasks", fields: [parent_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_tasks_id_fk")
+  other_tasks                    tasks[]     @relation("tasksTotasks")
+  users_tasks_user_idTousers     users?      @relation("tasks_user_idTousers", fields: [user_id], references: [id], onDelete: SetNull, onUpdate: Cascade, map: "tasks_users_id_fk")
+  users_tasks_assignee_idTousers users?      @relation("tasks_assignee_idTousers", fields: [assignee_id], references: [id], onDelete: SetNull, onUpdate: Cascade, map: "tasks_users_id_fk_2")
+
+  @@index([assignee_id], map: "tasks_assignee_id_index")
+  @@index([status], map: "tasks_status_index")
+  @@index([user_id], map: "tasks_user_id_index")
+}
+
+model users {
+  id                             Int      @id(map: "users_pk") @default(autoincrement())
+  first_name                     String   @db.VarChar(50)
+  last_name                      String   @db.VarChar(50)
+  email                          String   @unique(map: "users_pk_2") @db.VarChar(200)
+  created_at                     DateTime @default(now()) @db.Timestamptz(6)
+  updated_at                     DateTime @default(now()) @db.Timestamptz(6)
+  tasks_tasks_user_idTousers     tasks[]  @relation("tasks_user_idTousers")
+  tasks_tasks_assignee_idTousers tasks[]  @relation("tasks_assignee_idTousers")
+
+  @@index([email], map: "users_email_index")
+}
+
+enum task_status {
+  todo
+  in_progress
+  completed
+}

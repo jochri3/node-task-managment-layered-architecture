@@ -1,0 +1,71 @@
+@BASE_URL= http://localhost:3000/api
+
+### Retreives all tasks
+GET {{BASE_URL}}/tasks
+
+### Retreives a single task
+@taskId = 26
+GET {{BASE_URL}}/tasks/{{taskId}}
+
+### Delete a task
+DELETE {{BASE_URL}}/tasks/{{taskId}}
+
+### Create a task
+POST http://localhost:3000/api/tasks
+Content-Type: application/json
+
+{
+  "description": "Description de la nouvelle tâche",
+  "start_date": "2023-06-01T00:00:00.000Z",
+  "end_date": "2023-06-30T00:00:00.000Z",
+  "parent_id": null,
+  "assignee_id": 2,
+  "status": "todo"
+}
+
+### Update a task
+PATCH http://localhost:3000/api/tasks/21
+Content-Type: application/json
+
+{
+  "title": "Tâche mise à jour 2",
+  "description": "Description mise à jour de la tâche",
+  "start_date": "2023-06-01T00:00:00.000Z",
+  "end_date": "2023-06-30T00:00:00.000Z",
+  "user_id": 1,
+  "parent_id": null,
+  "assignee_id": 3,
+  "status": "in_progress"
+}
+
+
+
+### Retreives all users
+GET {{BASE_URL}}/users
+
+### Retreives a single user
+@userId = 54
+GET {{BASE_URL}}/users/{{userId}}
+
+### Delete a user
+DELETE {{BASE_URL}}/users/{{userId}}
+
+### Create user
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "email": "john.doe@example.com"
+}
+
+### Update user
+PATCH http://localhost:3000/api/users/6
+Content-Type: application/json
+
+{
+  "first_name": "John",
+  "last_name": "Wick Nicolas Cage",
+  "email": "john.wick@example.com"
+}
