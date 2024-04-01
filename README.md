@@ -7,6 +7,7 @@ It showcases the implementation of a RESTful API with CRUD operations for managi
 The project utilizes Prisma as the ORM (Object-Relational Mapping) tool for database management and provides integration tests to ensure the functionality of the API endpoints.
 
 For this project, I didn't include authentication. The following features could be added:
+- Swagger Docs
 - JWT authentication
 - Handling refresh token rotations using `redis`
 - Using docker compose to launch `Redis` and `PostreSQL`. They were not used because at the moment I taught, the class didn't lean Docker.
@@ -125,14 +126,6 @@ To check the code for linting errors and automatically apply fixes, run the foll
 ```bash
 npm run check
 ```
-
-## Swagger API Documentation
-
-This project uses Swagger for API documentation. To view the API documentation, follow these steps:
-
-1. Start the application using `npm run start:dev` or `npm run start:prod`.
-2. Open a web browser and navigate to `http://localhost:3000/api-docs`.
-3. Explore the available API endpoints, request/response schemas, and test the API directly from the Swagger UI.
 
 ## Project Structure
 
